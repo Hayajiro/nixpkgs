@@ -20,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "home-assistant-intents";
-  version = "2024.1.2";
+  version = "2024.2.2";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -28,8 +28,9 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "home-assistant";
     repo = "intents-package";
-    rev = "refs/tags/${version}";
-    hash = "sha256-uOrSvkzymG31nRmAgrn6z1IDJWahxqXHcPDflLPRVT4=";
+    # https://github.com/home-assistant/intents-package/issues/3
+    rev = "ccaf1a48246bbcb779b79846bd080a190925422b";
+    hash = "sha256-JZa4Hl17kr22r/72YWGH5zOeKjvD4NWj5aPbh0fQAsg=";
     fetchSubmodules = true;
   };
 
@@ -61,11 +62,6 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [
     "intents/tests"
-  ];
-
-  disabledTests = [
-    # AssertionError: Recognition failed for 'put apples on the list'
-    "test_shopping_list_HassShoppingListAddItem"
   ];
 
   meta = with lib; {
